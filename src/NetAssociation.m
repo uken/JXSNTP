@@ -119,6 +119,14 @@ static double ntpDiffSeconds(struct ntpTimestamp * start, struct ntpTimestamp * 
         NTP_Logging(@"Unable to start listening on socket for [%@] due to error [%@]", server, error);
         return;
     }*/
+    
+    // Do not trust old data as the system time could have been altered
+    pollingIntervalIndex = 4;
+    trusty = FALSE;
+    offset = 0.0;
+    for (short i = 0; i < 8; i++) fifoQueue[i] = 1E10;
+    fifoIndex = 0;
+    
     [repeatingTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:
                                  (double)(5.0 * (float)rand()/(float)RAND_MAX)]];
 

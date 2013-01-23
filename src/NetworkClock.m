@@ -233,6 +233,7 @@
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 - (void) applicationFore:(NSNotification *) notification {
     LogInProduction(@"*** application -> Foreground");
+    timeIntervalSinceDeviceTime = 0.0;
     [self enableAssociations];
 }
 
