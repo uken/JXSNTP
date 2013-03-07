@@ -4,6 +4,10 @@
   ║  Created by Gavin Eadie on Oct17/10                                                              ║
   ║  Copyright 2010 Ramsay Consulting. All rights reserved.                                          ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
+#define NTP_Logging(fmt, ...)
+#define LogInProduction(fmt, ...) \
+NSLog((@"%@|" fmt), [NSString stringWithFormat: @"%24s", \
+[[[self class] description] UTF8String]], ##__VA_ARGS__)
 
 #import <netinet/in.h>
 #import "NetworkClock.h"
@@ -54,11 +58,11 @@
     timeAssociations = [[NSMutableArray arrayWithCapacity:48] retain];
 
     associationDelegateQueue = dispatch_queue_create("org.ios-ntp.delegates", 0);
-    
+
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ .. and fill that array with the time hosts obtained from "ntp.hosts" ..                          │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-    [self createAssociations];                  
+    [self createAssociations];
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ prepare to catch our application entering and leaving the background ..                          │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/

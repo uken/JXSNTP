@@ -5,6 +5,11 @@
   ║ Copyright 2010 Ramsay Consulting. All rights reserved.                                           ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
+#define NTP_Logging(fmt, ...)
+#define LogInProduction(fmt, ...) \
+NSLog((@"%@|" fmt), [NSString stringWithFormat: @"%24s", \
+[[[self class] description] UTF8String]], ##__VA_ARGS__)
+
 #import "NetAssociation.h"
 
 static double pollIntervals[18] = {
@@ -102,7 +107,7 @@ static double ntpDiffSeconds(struct ntpTimestamp * start, struct ntpTimestamp * 
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 - (void) queryTimeServer:(NSTimer *) timer {
     [socket sendData:[self createPacket] toHost:server port:123L withTimeout:2.0 tag:0];
-    
+
     NSError* error = nil;
     if(![socket beginReceiving:&error]) {
         NTP_Logging(@"Unable to start listening on socket for [%@] due to error [%@]", server, error);
@@ -119,14 +124,14 @@ static double ntpDiffSeconds(struct ntpTimestamp * start, struct ntpTimestamp * 
         NTP_Logging(@"Unable to start listening on socket for [%@] due to error [%@]", server, error);
         return;
     }*/
-    
+
     // Do not trust old data as the system time could have been altered
     pollingIntervalIndex = 4;
     trusty = FALSE;
     offset = 0.0;
     for (short i = 0; i < 8; i++) fifoQueue[i] = 1E10;
     fifoIndex = 0;
-    
+
     [repeatingTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:
                                  (double)(5.0 * (float)rand()/(float)RAND_MAX)]];
 
@@ -228,7 +233,7 @@ static double ntpDiffSeconds(struct ntpTimestamp * start, struct ntpTimestamp * 
     fifoIndex++;                                            // rotate index
 
     NTP_Logging(@"[%@] index=%i {%5.3f,%5.3f,%5.3f,%5.3f,%5.3f,%5.3f,%5.3f,%5.3f}", server,
-                fifoIndex % 8, fifoQueue[0], fifoQueue[1], fifoQueue[2], fifoQueue[3], 
+                fifoIndex % 8, fifoQueue[0], fifoQueue[1], fifoQueue[2], fifoQueue[3],
                                fifoQueue[4], fifoQueue[5], fifoQueue[6], fifoQueue[7]);
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ look at the (up to eight) offsets in the fifo and and count 'good', 'fail' and 'not used yet'    │
@@ -255,20 +260,20 @@ static double ntpDiffSeconds(struct ntpTimestamp * start, struct ntpTimestamp * 
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
     if (good > 0 || fail > 3) {
         offset = offset / good;
-        
+
         NTP_Logging(@"[%@] index=%i {good: %i; fail: %i; none: %i} offset=%3.1f", server,
                     fifoIndex, good, fail, none, offset * 1000.0);
-        
+
         if (good+none < 5) {                                // four or more 'fails'
-            trusty = FALSE;  
+            trusty = FALSE;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"assoc-fail" object:self];
         }
         else {                                              // ...
-            trusty = TRUE;  
+            trusty = TRUE;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"assoc-good" object:self];
         }
     }
-    
+
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │   .. if the association is providing times which don't vary much, we could increase its polling  │
   │      interval.  In practice, once things settle down, the standard deviation on any time server  │
@@ -277,7 +282,7 @@ static double ntpDiffSeconds(struct ntpTimestamp * start, struct ntpTimestamp * 
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
     if (stratum == 1) pollingIntervalIndex = 6;
     if (stratum == 2) pollingIntervalIndex = 5;
-    
+
     dispatch_async(dispatch_get_main_queue(), ^{
         // Reschedule the timer if the time interval differs from that we've selected.
         if([repeatingTimer timeInterval] != pollIntervals[pollingIntervalIndex]) {
@@ -288,8 +293,8 @@ static double ntpDiffSeconds(struct ntpTimestamp * start, struct ntpTimestamp * 
             repeatingTimer = [[NSTimer scheduledTimerWithTimeInterval:pollIntervals[pollingIntervalIndex]
                                                                target:self selector:@selector(queryTimeServer:)
                                                              userInfo:nil repeats:YES] retain];
-        } 
-    });    
+        }
+    });
 }
 
 #pragma mark                        N e t w o r k • C a l l b a c k s
@@ -344,15 +349,15 @@ static double ntpDiffSeconds(struct ntpTimestamp * start, struct ntpTimestamp * 
 }
 
 - (void) udpSocket:(GCDAsyncUdpSocket *)sock didNotConnect:(NSError *)error {
-    NTP_Logging(@"Socket failed to connect to [%@] due to error : [%@]", server, error);            
+    NTP_Logging(@"Socket failed to connect to [%@] due to error : [%@]", server, error);
 }
 
 - (void) udpSocket:(GCDAsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error {
-    NTP_Logging(@"Socket failed to send to [%@] due to error : [%@]", server, error);        
+    NTP_Logging(@"Socket failed to send to [%@] due to error : [%@]", server, error);
 }
 
 - (void) udpSocketDidClose:(GCDAsyncUdpSocket *)sock withError:(NSError *)error {
-    NTP_Logging(@"Socket closed : [%@] error : [%@]", server, error);    
+    NTP_Logging(@"Socket closed : [%@] error : [%@]", server, error);
 }
 
 #pragma mark                        T i m e • C o n v e r t e r s
