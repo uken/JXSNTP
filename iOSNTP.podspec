@@ -8,7 +8,7 @@
 #
 Pod::Spec.new do |s|
   s.name         = "iOSNTP"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "An application testbed and a network time protocol client for iOS."
   # s.description  = <<-DESC
   #                   An optional longer description of iOSNTP
@@ -49,7 +49,7 @@ Pod::Spec.new do |s|
 
   # Specify the location from where the source should be retrieved.
   #
-  s.source       = { :git => "https://github.com/Psli/ios-ntp.git", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/Psli/ios-ntp.git", :tag => s.version.to_s }
   # s.source       = { :svn => 'http://EXAMPLE/iOSNTP/tags/1.0.0' }
   # s.source       = { :hg  => 'http://EXAMPLE/iOSNTP', :revision => '1.0.0' }
 
