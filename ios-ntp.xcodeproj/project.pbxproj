@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0637D71D16E8D8770087953E /* iOSNTP.h in Headers */ = {isa = PBXBuildFile; fileRef = 0637D71C16E8D8770087953E /* iOSNTP.h */; };
+		0637D71D16E8D8770087953E /* JXSNTP.h in Headers */ = {isa = PBXBuildFile; fileRef = 0637D71C16E8D8770087953E /* JXSNTP.h */; };
 		0637D86E16EB4C6B0087953E /* JXSNTPMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 0637D86C16EB4C6A0087953E /* JXSNTPMacros.h */; };
 		3470C4CE15DB290A009295B2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3470C4CD15DB290A009295B2 /* Foundation.framework */; };
 		3470C4E015DB2947009295B2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3470C4DF15DB2947009295B2 /* UIKit.framework */; };
@@ -42,7 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0637D71C16E8D8770087953E /* iOSNTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSNTP.h; sourceTree = "<group>"; };
+		0637D71C16E8D8770087953E /* JXSNTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXSNTP.h; sourceTree = "<group>"; };
 		0637D86C16EB4C6A0087953E /* JXSNTPMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXSNTPMacros.h; sourceTree = "<group>"; };
 		199B5741151CBE5100155281 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
 		199B5742151CBE5100155281 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
@@ -154,7 +154,7 @@
 		D91E95D813D9AF8C004E4194 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				0637D71C16E8D8770087953E /* iOSNTP.h */,
+				0637D71C16E8D8770087953E /* JXSNTP.h */,
 				D9B2BA4013D9C06100C9385A /* NSDate+NetworkClock.h */,
 				D9B2BA4113D9C06100C9385A /* NSDate+NetworkClock.m */,
 				D91E95D913D9AF8C004E4194 /* NetAssociation.h */,
@@ -212,7 +212,7 @@
 				3470C4F915DB2A0B009295B2 /* NSDate+NetworkClock.h in Headers */,
 				3470C4FB15DB2A0B009295B2 /* NetAssociation.h in Headers */,
 				3470C4FC15DB2A0B009295B2 /* NetworkClock.h in Headers */,
-				0637D71D16E8D8770087953E /* iOSNTP.h in Headers */,
+				0637D71D16E8D8770087953E /* JXSNTP.h in Headers */,
 				0637D86E16EB4C6B0087953E /* JXSNTPMacros.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
