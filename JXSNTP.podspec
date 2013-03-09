@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod spec lint iOSNTP.podspec' to ensure this is a
+# Be sure to run `pod spec lint JXSNTP.podspec' to ensure this is a
 # valid spec.
 #
 # Remove all comments before submitting the spec. Optional attributes are commented.
@@ -7,8 +7,8 @@
 # For details see: https://github.com/CocoaPods/CocoaPods/wiki/The-podspec-format
 #
 Pod::Spec.new do |s|
-  s.name         = "iOSNTP"
-  s.version      = "0.0.2"
+  s.name         = "JXSNTP"
+  s.version      = "1.0.0"
   s.summary      = "An application testbed and a network time protocol client for iOS."
   # s.description  = <<-DESC
   #                   An optional longer description of iOSNTP
@@ -16,11 +16,11 @@ Pod::Spec.new do |s|
   #                   * Markdown format.
   #                   * Don't worry about the indent, we strip it!
   #                  DESC
-  s.homepage     = "https://github.com/Psli/ios-ntp"
+  s.homepage     = "https://github.com/Psli/JXSNTP"
 
   # Specify the license type. CocoaPods detects automatically the license file if it is named
   # `LICEN{C,S}E*.*', however if the name is different, specify it.
-  s.license      = 'MIT (example)'
+  s.license      = 'MIT'
   # s.license      = { :type => 'MIT (example)', :file => 'FILE_LICENSE' }
   #
   # Only if no dedicated file is available include the full text of the license.
@@ -49,7 +49,7 @@ Pod::Spec.new do |s|
 
   # Specify the location from where the source should be retrieved.
   #
-  s.source       = { :git => "https://github.com/Psli/ios-ntp.git", :tag => s.version.to_s }
+  s.source       = { :git => "https://github.com/Psli/JXSNTP.git", :tag => s.version.to_s }
   # s.source       = { :svn => 'http://EXAMPLE/iOSNTP/tags/1.0.0' }
   # s.source       = { :hg  => 'http://EXAMPLE/iOSNTP', :revision => '1.0.0' }
 
