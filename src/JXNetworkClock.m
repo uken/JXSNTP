@@ -6,11 +6,11 @@
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 #import <netinet/in.h>
-#import "NetworkClock.h"
+#import "JXNetworkClock.h"
 
 #import "JXSNTPMacros.h"
 
-@interface NetworkClock (PrivateMethods)
+@interface JXNetworkClock (PrivateMethods)
 
 - (void) offsetAverage;
 
@@ -34,7 +34,7 @@
   ┃ The method <networkTime> returns an NSDate with the network time.                                ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 
-@implementation NetworkClock
+@implementation JXNetworkClock
 
 + (id)sharedNetworkClock {
     static id sharedNetworkClockInstance = nil;
@@ -93,7 +93,7 @@
     NSArray *   sortedArray = [timeAssociations sortedArrayUsingDescriptors:sortDescriptors];
     short       usefulCount = 0;
 
-    for (NetAssociation * timeAssociation in sortedArray) {
+    for (JXNetAssociation * timeAssociation in sortedArray) {
         if (timeAssociation.trusty) {
             usefulCount++;
             timeIntervalSinceDeviceTime += timeAssociation.offset;
@@ -153,7 +153,7 @@
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │  ... start an 'association' (network clock object) for each address.                             │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-        NetAssociation* timeAssociation = [[NetAssociation alloc] initWithServerName:ntpDomainName queue:associationDelegateQueue];
+        JXNetAssociation* timeAssociation = [[JXNetAssociation alloc] initWithServerName:ntpDomainName queue:associationDelegateQueue];
         [timeAssociations addObject:timeAssociation];
         [timeAssociation release];
     }
@@ -214,7 +214,7 @@
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 - (void) associationFake:(NSNotification *) notification {
     if ([timeAssociations count] > 8) {
-        NetAssociation *    association = [notification object];
+        JXNetAssociation *    association = [notification object];
         NTP_Logging(@"*** false association: %@ (%i left)", association, [timeAssociations count]);
         [timeAssociations removeObject:association];
         [association finish];

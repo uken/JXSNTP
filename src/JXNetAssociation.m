@@ -6,7 +6,7 @@
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 
-#import "NetAssociation.h"
+#import "JXNetAssociation.h"
 #import "JXSNTPMacros.h"
 
 static double pollIntervals[18] = {
@@ -32,7 +32,7 @@ static double pollIntervals[18] = {
   ┃ provide a best time.                                                                             ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 
-@interface NetAssociation (PrivateMethods)
+@interface JXNetAssociation (PrivateMethods)
 
 - (void) queryTimeServer:(NSTimer *) timer;     // query the association's server (fired by timer)
 
@@ -50,7 +50,7 @@ static double ntpDiffSeconds(struct ntpTimestamp * start, struct ntpTimestamp * 
 #pragma mark -
 #pragma mark                        N E T W O R K • A S S O C I A T I O N
 
-@implementation NetAssociation
+@implementation JXNetAssociation
 
 @synthesize trusty, offset;
 

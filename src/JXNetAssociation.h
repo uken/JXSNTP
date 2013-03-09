@@ -45,7 +45,7 @@ struct ntpShortTime {
   │ evaluates the quality of the reply, and keeps the queries running till the server goes 'bad'     │
   │ or its creator kills it ...                                                                      │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-@interface NetAssociation : NSObject <GCDAsyncUdpSocketDelegate> {
+@interface JXNetAssociation : NSObject <GCDAsyncUdpSocketDelegate> {
         
     GCDAsyncUdpSocket *     socket;                         // NetAssociation UDP Socket
     NSString *              server;                         // server name "123.45.67.89"

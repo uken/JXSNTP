@@ -5,10 +5,10 @@
 // To use, simply call [NSDate networkDate];
 
 #import <Foundation/Foundation.h>
-#import "NetworkClock.h"
+#import "JXNetworkClock.h"
 
 
-@interface NSDate (NetworkClock)
+@interface NSDate (JXNetworkClock)
 
 - (NSTimeInterval) timeIntervalSinceNetworkDate;
 + (NSTimeInterval) timeIntervalSinceNetworkDate;

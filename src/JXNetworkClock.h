@@ -8,14 +8,14 @@
 #import <Foundation/Foundation.h>
 #import <CFNetwork/CFNetwork.h>
 #import "GCDAsyncUdpSocket.h"
-#import "NetAssociation.h"
+#import "JXNetAssociation.h"
 
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃ The NetworkClock sends notifications of the network time.  It will attempt to provide a very     ┃
   ┃ early estimate and then refine that and reduce the number of notifications ...                   ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 
-@interface NetworkClock : NSObject {
+@interface JXNetworkClock : NSObject {
 
     NSTimeInterval          timeIntervalSinceDeviceTime;
 
@@ -29,7 +29,7 @@
     dispatch_queue_t        associationDelegateQueue;
 }
 
-+ (NetworkClock *) sharedNetworkClock;
++ (JXNetworkClock *) sharedNetworkClock;
 
 - (void) createAssociations;
 - (void) enableAssociations;

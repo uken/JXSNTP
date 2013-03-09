@@ -5,6 +5,6 @@
   ║ Copyright 2010 Ramsay Consulting. All rights reserved.                                           ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
-#import "NetAssociation.h"
-#import "NetworkClock.h"
-#import "NSDate+NetworkClock.h"
+#import "JXNetAssociation.h"
+#import "JXNetworkClock.h"
+#import "NSDate+JXNetworkClock.h"

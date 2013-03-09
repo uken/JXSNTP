@@ -1,8 +1,8 @@
 
 
-#import "NSDate+NetworkClock.h"
+#import "NSDate+JXNetworkClock.h"
 
-@implementation NSDate (NetworkClock)
+@implementation NSDate (JXNetworkClock)
 
 - (NSTimeInterval) timeIntervalSinceNetworkDate {
   return [self timeIntervalSinceDate:[NSDate networkDate]];
@@ -14,11 +14,11 @@
 
 
 + (NSDate *) networkDate {
-  return [[NetworkClock sharedNetworkClock] networkTime];
+  return [[JXNetworkClock sharedNetworkClock] networkTime];
 }
 
 + (NSDate *) threadsafeNetworkDate {
-  NetworkClock *sharedClock = [NetworkClock sharedNetworkClock];
+  JXNetworkClock *sharedClock = [JXNetworkClock sharedNetworkClock];
   @synchronized(sharedClock) {
     return [sharedClock networkTime];
   }
