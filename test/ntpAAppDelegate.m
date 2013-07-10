@@ -43,6 +43,7 @@
     netClockLabel.text = [NSString stringWithFormat:@"%@", networkTime];
     differenceLabel.text = [NSString stringWithFormat:@"%5.3f",
                             [networkTime timeIntervalSinceDate:systemTime]];
+    confidenceLabel.text = [NSString stringWithFormat:@"%d%%", (int)([NSDate networkConfidence]*100)];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -54,6 +55,7 @@
 
     [window release];
     [viewController release];
+    [confidenceLabel release];
     [super dealloc];
 }
 

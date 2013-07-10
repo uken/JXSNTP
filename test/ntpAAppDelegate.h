@@ -18,6 +18,7 @@
     IBOutlet UILabel *              sysClockLabel;
     IBOutlet UILabel *              netClockLabel;
     IBOutlet UILabel *              differenceLabel;
+    IBOutlet UILabel *              confidenceLabel;
     
 }
 

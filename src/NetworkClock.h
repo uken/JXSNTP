@@ -28,6 +28,8 @@
     NSArray *               sortDescriptors;
     
     dispatch_queue_t        associationDelegateQueue;
+    
+    NSInteger               usefulAssociations;
 }
 
 + (NetworkClock *) sharedNetworkClock;
@@ -38,5 +40,7 @@
 - (void) finishAssociations;
 
 - (NSDate *) networkTime;
+
+- (float) networkConfidence;
 
 @end

@@ -35,6 +35,9 @@
 		E9855A0C178DA51B00D202A4 /* GCDAsyncUdpSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 199B5741151CBE5100155281 /* GCDAsyncUdpSocket.h */; };
 		E9855A0D178DA51B00D202A4 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 199B5742151CBE5100155281 /* GCDAsyncUdpSocket.m */; };
 		E9855A0E178DA52700D202A4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8661906E126C0CD70046A2B8 /* UIKit.framework */; };
+		E9855A14178DAA8400D202A4 /* SystemUptime.m in Sources */ = {isa = PBXBuildFile; fileRef = E9855A13178DAA8400D202A4 /* SystemUptime.m */; };
+		E9855A15178DAA8900D202A4 /* SystemUptime.h in Headers */ = {isa = PBXBuildFile; fileRef = E9855A12178DAA8400D202A4 /* SystemUptime.h */; };
+		E9855A16178DAA8900D202A4 /* SystemUptime.m in Sources */ = {isa = PBXBuildFile; fileRef = E9855A13178DAA8400D202A4 /* SystemUptime.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +74,8 @@
 		E98559FC178DA43D00D202A4 /* ios-ntp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ios-ntp-Info.plist"; sourceTree = "<group>"; };
 		E98559FE178DA43D00D202A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E9855A00178DA43D00D202A4 /* ios-ntp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ios-ntp-Prefix.pch"; sourceTree = "<group>"; };
+		E9855A12178DAA8400D202A4 /* SystemUptime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemUptime.h; sourceTree = "<group>"; };
+		E9855A13178DAA8400D202A4 /* SystemUptime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemUptime.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +149,8 @@
 		D91E95D813D9AF8C004E4194 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				E9855A12178DAA8400D202A4 /* SystemUptime.h */,
+				E9855A13178DAA8400D202A4 /* SystemUptime.m */,
 				D9B2BA4013D9C06100C9385A /* NSDate+NetworkClock.h */,
 				D9B2BA4113D9C06100C9385A /* NSDate+NetworkClock.m */,
 				D9B2BA3213D9B6CF00C9385A /* ios-ntp.h */,
@@ -228,6 +235,7 @@
 				E9855A07178DA4E400D202A4 /* NetAssociation.h in Headers */,
 				E9855A09178DA4E400D202A4 /* NetworkClock.h in Headers */,
 				E9855A0C178DA51B00D202A4 /* GCDAsyncUdpSocket.h in Headers */,
+				E9855A15178DAA8900D202A4 /* SystemUptime.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +384,7 @@
 				D91E95E713D9AF8C004E4194 /* ntpAViewController.m in Sources */,
 				D9B2BA4313D9C06100C9385A /* NSDate+NetworkClock.m in Sources */,
 				199B5743151CBE5100155281 /* GCDAsyncUdpSocket.m in Sources */,
+				E9855A14178DAA8400D202A4 /* SystemUptime.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +396,7 @@
 				E9855A08178DA4E400D202A4 /* NetAssociation.m in Sources */,
 				E9855A0A178DA4E400D202A4 /* NetworkClock.m in Sources */,
 				E9855A0D178DA51B00D202A4 /* GCDAsyncUdpSocket.m in Sources */,
+				E9855A16178DAA8900D202A4 /* SystemUptime.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +605,7 @@
 				E9855A03178DA43D00D202A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

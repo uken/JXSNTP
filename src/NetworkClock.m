@@ -7,6 +7,9 @@
 
 #import <netinet/in.h>
 #import "NetworkClock.h"
+#import "SystemUptime.h"
+
+#define USEFUL_ASSOCIATIONS_LIMIT   8
 
 @interface NetworkClock (PrivateMethods)
 
@@ -69,6 +72,9 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationFore:)
 												 name:UIApplicationWillEnterForegroundNotification
 											   object:nil];
+    
+    [self offsetAverage];
+    
     return self;
 }
 
@@ -96,14 +102,18 @@
             usefulCount++;
             timeIntervalSinceDeviceTime += timeAssociation.offset;
         }
-        if (usefulCount == 8) break;                // use 8 best dispersions
+        if (usefulCount == USEFUL_ASSOCIATIONS_LIMIT) break;                // use 8 best dispersions
     }
 
+    usefulAssociations = usefulCount;
+    
     if (usefulCount > 0) {
         timeIntervalSinceDeviceTime /= usefulCount;
+    } else {
+        timeIntervalSinceDeviceTime = [[[SystemUptime sharedInstance] uptimeAsDate] timeIntervalSinceNow]; // use the local clock since the time servers aren't ready
     }
 //###ADDITION?
-  if (usefulCount ==8)
+  if (usefulCount == USEFUL_ASSOCIATIONS_LIMIT)
   {
     //stop it for now
     //
@@ -117,10 +127,18 @@
   ┃ be called very frequently, we recompute the average offset every 30 seconds.                     ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 - (NSDate *) networkTime {
-    return [[NSDate date] dateByAddingTimeInterval:-timeIntervalSinceDeviceTime];
+    
+    return [[[SystemUptime sharedInstance] uptimeAsDate] dateByAddingTimeInterval:-timeIntervalSinceDeviceTime];
 
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"net-time" object:self];
 
+}
+
+- (float) networkConfidence {
+    if ( [timeAssociations count] == 0 )
+        return 0;
+    
+    return (float)usefulAssociations/MIN( [timeAssociations count],USEFUL_ASSOCIATIONS_LIMIT);
 }
 
 #pragma mark                        I n t e r n a l  •  M e t h o d s
@@ -233,7 +251,6 @@
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 - (void) applicationFore:(NSNotification *) notification {
     LogInProduction(@"*** application -> Foreground");
-    timeIntervalSinceDeviceTime = 0.0;
     [self enableAssociations];
 }
 

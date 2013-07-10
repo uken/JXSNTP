@@ -24,5 +24,8 @@
   }
 }
 
++ (float) networkConfidence {
+    return [[NetworkClock sharedNetworkClock] networkConfidence];
+}
 
 @end

@@ -19,6 +19,7 @@
   // potentially being updated at the same time. Since doubles are 8 words,
   // and arm is 32bit, this is not atomic and could provide bad values.
 
++ (float) networkConfidence;
 
 @end
 

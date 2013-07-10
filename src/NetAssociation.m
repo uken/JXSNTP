@@ -7,6 +7,8 @@
 
 #import "NetAssociation.h"
 
+#import "SystemUptime.h"
+
 static double pollIntervals[18] = {
       16.0,    16.0,    16.0,    16.0,    16.0,     35.0,
       72.0,   127.0,   258.0,   511.0,  1024.0,   2048.0,
@@ -101,7 +103,12 @@ static double ntpDiffSeconds(struct ntpTimestamp * start, struct ntpTimestamp * 
   ┃ Set the receiver and send the time query with 2 second timeout, ...                              ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 - (void) queryTimeServer:(NSTimer *) timer {
-    [socket sendData:[self createPacket] toHost:server port:123L withTimeout:2.0 tag:0];
+    NSData *packet = [self createPacket];
+    if ( !packet ) {
+        NTP_Logging(@"Unable to create packet");
+        return;
+    }
+    [socket sendData:packet toHost:server port:123L withTimeout:2.0 tag:0];
     
     NSError* error = nil;
     if(![socket beginReceiving:&error]) {
@@ -119,14 +126,7 @@ static double ntpDiffSeconds(struct ntpTimestamp * start, struct ntpTimestamp * 
         NTP_Logging(@"Unable to start listening on socket for [%@] due to error [%@]", server, error);
         return;
     }*/
-    
-    // Do not trust old data as the system time could have been altered
-    pollingIntervalIndex = 4;
-    trusty = FALSE;
-    offset = 0.0;
-    for (short i = 0; i < 8; i++) fifoQueue[i] = 1E10;
-    fifoIndex = 0;
-    
+
     [repeatingTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:
                                  (double)(5.0 * (float)rand()/(float)RAND_MAX)]];
 
@@ -191,8 +191,10 @@ static double ntpDiffSeconds(struct ntpTimestamp * start, struct ntpTimestamp * 
 	wireData[2] = htonl(1<<16);
 
     struct timeval  now;
-	gettimeofday(&now, NULL);
-
+	BOOL success = [[SystemUptime sharedInstance] uptime:[NSValue valueWithPointer:&now]];
+    if ( !success )
+        return Nil;
+    
 	ntpClientSendTime.fullSeconds = now.tv_sec + JAN_1970;
 	ntpClientSendTime.partSeconds = uSec2Frac(now.tv_usec);
 
@@ -299,8 +301,14 @@ static double ntpDiffSeconds(struct ntpTimestamp * start, struct ntpTimestamp * 
   │  grab the packet arrival time as fast as possible, before computations below ...                 │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
     struct timeval          arrival_time;
-	gettimeofday(&arrival_time, NULL);
-
+	
+    BOOL success = [[SystemUptime sharedInstance] uptime:[NSValue valueWithPointer:&arrival_time]];
+    if ( !success ) {
+        NTP_Logging(@"Unable to get system uptime");
+        return;
+    }
+    
+    
     ntpClientRecvTime.fullSeconds = arrival_time.tv_sec + JAN_1970;     // Transmit Timestamp coarse
 	ntpClientRecvTime.partSeconds = uSec2Frac(arrival_time.tv_usec);    // Transmit Timestamp fine
 
