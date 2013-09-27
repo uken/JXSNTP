@@ -12,6 +12,7 @@ Pod::Spec.new do |s|
   s.prefix_header_file = 'resources/ios-ntp-Prefix.pch'
   s.source_files = 'src/*.{h,m}', 'src/**/*.{h,m}','lib/*.{h,m}', 'resources/ios-ntp-Prefix.pch'
   s.exclude_files = 'Classes/Exclude'
+  s.resources = 'resources/ntp.hosts'
   s.framework = 'CFNetwork'
 
   s.requires_arc = false
