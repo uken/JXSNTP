@@ -11,6 +11,12 @@
 
 #define USEFUL_ASSOCIATIONS_LIMIT   8
 
+@interface NetworkClock ()
+
+@property (nonatomic)       NSInteger usefulAssociations;
+
+@end
+
 @interface NetworkClock (PrivateMethods)
 
 - (void) offsetAverage;
@@ -104,8 +110,8 @@
         }
         if (usefulCount == USEFUL_ASSOCIATIONS_LIMIT) break;                // use 8 best dispersions
     }
-
-    usefulAssociations = usefulCount;
+    
+    self.usefulAssociations = usefulCount;
     
     if (usefulCount > 0) {
         timeIntervalSinceDeviceTime /= usefulCount;
@@ -137,8 +143,8 @@
 - (float) networkConfidence {
     if ( [timeAssociations count] == 0 )
         return 0;
-    
-    return (float)usefulAssociations/MIN( [timeAssociations count],USEFUL_ASSOCIATIONS_LIMIT);
+
+    return (float)self.usefulAssociations/MIN( [timeAssociations count],USEFUL_ASSOCIATIONS_LIMIT);
 }
 
 #pragma mark                        I n t e r n a l  •  M e t h o d s
@@ -235,6 +241,13 @@
         [timeAssociations removeObject:association];
         [association finish];
         association = nil;
+    }
+}
+
+-(void) setUsefulAssociations:(NSInteger)usefulAssociations {
+    if ( usefulAssociations != _usefulAssociations ) {
+        _usefulAssociations = usefulAssociations;
+        [[NSNotificationCenter defaultCenter] postNotificationName:IOS_NTP_NETWORK_CONFIDENCE_CHANGED object:self userInfo:@{ @"confidence": [NSNumber numberWithFloat:[self networkConfidence]]}];
     }
 }
 

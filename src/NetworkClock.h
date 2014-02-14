@@ -11,6 +11,8 @@
 #import "GCDAsyncUdpSocket.h"
 #import "NetAssociation.h"
 
+#define IOS_NTP_NETWORK_CONFIDENCE_CHANGED  @"ios_ntp:network_confidence_changed" // userInfo: @{ @"confidence": NSNumber *confidence }
+
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃ The NetworkClock sends notifications of the network time.  It will attempt to provide a very     ┃
   ┃ early estimate and then refine that and reduce the number of notifications ...                   ┃
@@ -28,8 +30,6 @@
     NSArray *               sortDescriptors;
     
     dispatch_queue_t        associationDelegateQueue;
-    
-    NSInteger               usefulAssociations;
 }
 
 + (NetworkClock *) sharedNetworkClock;
