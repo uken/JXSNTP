@@ -111,13 +111,14 @@
         if (usefulCount == USEFUL_ASSOCIATIONS_LIMIT) break;                // use 8 best dispersions
     }
     
-    self.usefulAssociations = usefulCount;
-    
     if (usefulCount > 0) {
         timeIntervalSinceDeviceTime /= usefulCount;
     } else {
         timeIntervalSinceDeviceTime = [[[SystemUptime sharedInstance] uptimeAsDate] timeIntervalSinceNow]; // use the local clock since the time servers aren't ready
     }
+    
+    self.usefulAssociations = usefulCount;
+    
 //###ADDITION?
   if (usefulCount == USEFUL_ASSOCIATIONS_LIMIT)
   {
