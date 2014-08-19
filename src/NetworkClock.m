@@ -8,6 +8,7 @@
 #import <netinet/in.h>
 #import "NetworkClock.h"
 #import "SystemUptime.h"
+#import <arpa/inet.h>
 
 #define USEFUL_ASSOCIATIONS_LIMIT   8
 
@@ -203,8 +204,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"assoc-good" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"assoc-fail" object:nil];
 }
-
-#import <arpa/inet.h>
 
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃ ... obtain IP address, "xx.xx.xx.xx", from the sockaddr structure ...                            ┃
