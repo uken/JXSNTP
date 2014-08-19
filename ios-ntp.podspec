@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ios-ntp"
-  s.version      = "1.0.2-Uken"
+  s.version      = "1.0.4-Uken"
   s.summary      = "SNTP implementation for iOS."
   s.homepage     = "https://github.com/uken/JXSNTP.git"
   s.license      = 'MIT'
